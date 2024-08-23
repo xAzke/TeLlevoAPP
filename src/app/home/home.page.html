@@ -1,20 +1,36 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
+	<ion-toolbar>
+		<ion-title>
+			Primer Proyecto
+		</ion-title>
+	</ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+	<ion-card>
+		<ion-card-header>
+			<ion-card-title>Datos Personales</ion-card-title>
+			<ion-card-subtitle>Formulario</ion-card-subtitle>
+		</ion-card-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+		<ion-item>
+			<ion-label position="stacked">Nombre</ion-label>
+			<ion-input type="text" placeholder="Ingresar Nombre"></ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-label position="stacked">Edad</ion-label>
+			<ion-input type="number" placeholder="Ingresar Edad" max="10" min="2"></ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-label position="stacked">Edad</ion-label>
+			<ion-select placeholder="Seleccione Carrera">
+				<ion-select-option value="informatica">Informatica</ion-select-option>
+				<ion-select-option value="analista">Analista</ion-select-option>
+			</ion-select>
+		</ion-item>
+
+		<ion-button expand="block">Registrar</ion-button>
+	</ion-card>
 </ion-content>
