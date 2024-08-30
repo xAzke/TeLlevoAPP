@@ -7,13 +7,16 @@
 <ion-content [fullscreen]="true">
 	<div class="logo-container">
 		<img class="logo" src="../../assets/icon/logoduocuc.png" alt="Logotipo de DuocUC">
-		<p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam est distinctio eos, laborum temporibus quidem nihil doloremque expedita eum voluptatem molestiae consequuntur qui esse ipsa. Fugit ratione deleniti quisquam molestiae!</p>
+		<p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam est distinctio eos, laborum
+			temporibus quidem nihil doloremque expedita eum voluptatem molestiae consequuntur qui esse ipsa. Fugit
+			ratione deleniti quisquam molestiae!</p>
 	</div>
 
-	<form [formGroup]="loginForm">
+	<form [formGroup]="loginForm" (ngSubmit)="onLogin()">
 		<ion-item>
 			<ion-label position="stacked">Usuario</ion-label>
-			<ion-input formControlName="username" type="text" placeholder="Ingrese su Usuario" maxlength="8"></ion-input>
+			<ion-input formControlName="username" type="text" placeholder="Ingrese su Usuario"
+				maxlength="8"></ion-input>
 		</ion-item>
 
 		<div *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">Error Usuario</div>
