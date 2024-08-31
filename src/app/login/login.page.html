@@ -6,10 +6,8 @@
 
 <ion-content [fullscreen]="true">
 	<div class="logo-container">
-		<img class="logo" src="../../assets/icon/logoduocuc.png" alt="Logotipo de DuocUC">
-		<p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam est distinctio eos, laborum
-			temporibus quidem nihil doloremque expedita eum voluptatem molestiae consequuntur qui esse ipsa. Fugit
-			ratione deleniti quisquam molestiae!</p>
+		<img #logo class="logo" src="../../assets/icon/logoduocuc.png" alt="Logotipo de DuocUC">
+		<p #text class="text">Login super seguro de mi super aplicacion.</p>
 	</div>
 
 	<form [formGroup]="loginForm" (ngSubmit)="onLogin()">

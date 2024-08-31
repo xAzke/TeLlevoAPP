@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
     FormsModule,
@@ -7,7 +7,7 @@ import {
     FormBuilder,
     Validators,
 } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import { AnimationController, Animation, IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,35 +17,76 @@ import { Router } from '@angular/router';
     standalone: true,
     imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule],
 })
-
 export class LoginPage {
     loginForm!: FormGroup;
 
-    constructor(private fb: FormBuilder, private router: Router) {
+    @ViewChild('logo', { read: ElementRef })
+    logo?: ElementRef<HTMLImageElement>;
+
+    @ViewChild('text', { read: ElementRef })
+    text?: ElementRef<HTMLImageElement>;
+
+    private logoAnimation!: Animation;
+    private textAnimation!: Animation;
+
+    constructor(
+        private fb: FormBuilder,
+        private router: Router,
+        private animationCtrl: AnimationController
+    ) {
         this.loginForm = this.fb.group({
             username: [
                 '',
-                [Validators.required,
-                Validators.minLength(3),
-                Validators.maxLength(8),
-                Validators.pattern('^[a-zA-Z0-9]*$')],
+                [
+                    Validators.required,
+                    Validators.minLength(3),
+                    Validators.maxLength(8),
+                    Validators.pattern('^[a-zA-Z0-9]*$'),
+                ],
             ],
             password: [
                 '',
-                [Validators.required,
-                Validators.minLength(4),
-                Validators.maxLength(4),
-                Validators.pattern('^[0-9]*$')],
+                [
+                    Validators.required,
+                    Validators.minLength(4),
+                    Validators.maxLength(4),
+                    Validators.pattern('^[0-9]*$'),
+                ],
             ],
         });
     }
 
     onLogin() {
         if (this.loginForm.valid) {
-            const username = this.loginForm.get("username")?.value;
-            const password = this.loginForm.get("password")?.value;
-            
-            this.router.navigate(["home"], {queryParams: {username, password}})
+            const username = this.loginForm.get('username')?.value;
+            const password = this.loginForm.get('password')?.value;
+
+            this.router.navigate(['home'], {
+                queryParams: { username, password },
+            });
+        }
+    }
+
+    ngAfterViewInit() {
+        if (this.logo?.nativeElement && this.text?.nativeElement) {
+            this.logoAnimation = this.animationCtrl
+                .create()
+                .addElement(this.logo.nativeElement)
+                .duration(3000)
+                .fromTo('opacity', '0', '1');
+
+            this.textAnimation = this.animationCtrl
+                .create()
+                .addElement(this.text.nativeElement)
+                .duration(100)
+                .fromTo('transform', 'translateY(20px)', 'translateY(0)');
+
+            this.logoAnimation.play();
+            this.textAnimation.play();
+        } else {
+            console.log(
+                'No se encontro la wea asi que no hacemos nada por ahora'
+            );
         }
     }
 }
