@@ -9,13 +9,20 @@ import {
 } from '@angular/forms';
 import { AnimationController, Animation, IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { IconsModule } from '../icons.module';
 
 @Component({
     selector: 'app-login',
     templateUrl: './login.page.html',
     styleUrls: ['./login.page.scss'],
     standalone: true,
-    imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule],
+    imports: [
+        IonicModule,
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        IconsModule,
+    ],
 })
 export class LoginPage {
     loginForm!: FormGroup;
@@ -49,8 +56,8 @@ export class LoginPage {
                 [
                     Validators.required,
                     Validators.minLength(4),
-                    Validators.maxLength(4),
-                    Validators.pattern('^[0-9]*$'),
+                    Validators.maxLength(8),
+                    Validators.pattern('^(?=.*\\d)[A-Za-z\\d]{1,8}$'),
                 ],
             ],
         });
@@ -62,12 +69,19 @@ export class LoginPage {
             const password = this.loginForm.get('password')?.value;
 
             this.router.navigate(['home'], {
-                queryParams: { username, password },
+                state: { username, password },
             });
         }
     }
 
     ngAfterViewInit() {
+        const navigation = this.router.getCurrentNavigation();
+        if (navigation?.extras.state) {
+            const { username, password } = navigation.extras.state as { username: string; password: string };
+            this.loginForm.get('username')?.setValue(username);
+            this.loginForm.get('password')?.setValue(password);
+        }
+
         if (this.logo?.nativeElement && this.text?.nativeElement) {
             this.logoAnimation = this.animationCtrl
                 .create()
@@ -84,9 +98,7 @@ export class LoginPage {
             this.logoAnimation.play();
             this.textAnimation.play();
         } else {
-            console.log(
-                'No se encontro la wea asi que no hacemos nada por ahora'
-            );
+            console.log("¡Error en la animacion del logo o del texto!")
         }
     }
 }

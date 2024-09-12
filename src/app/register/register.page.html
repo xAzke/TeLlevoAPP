@@ -1,0 +1,132 @@
+<ion-header [translucent]="true">
+	<ion-toolbar>
+		<ion-title class="ion-text-center">Registrate en TeLlevoAPP</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+	<form [formGroup]="registerForm" (ngSubmit)="onRegister()" style="padding: 30px">
+		<ion-item>
+			<ion-input formControlName="usuario" label="Usuario" labelPlacement="floating"
+				placeholder="Usuario"></ion-input>
+		</ion-item>
+
+		<div style="color: red; margin-bottom: 10px;"
+			*ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched">
+			<small *ngIf="registerForm.get('username')?.errors?.['required']">¡Tienes que ingresar un usuario! </small>
+			<small *ngIf="registerForm.get('username')?.errors?.['minlength']">¡El usuario tiene que tener mas de 3
+				caracteres! </small>
+			<small *ngIf="registerForm.get('username')?.errors?.['maxlength']">¡El usuario tiene que tener menos de 20
+				caracteres! </small>
+			<small *ngIf="registerForm.get('username')?.errors?.['pattern']">¡El nombre no puede contener espacios o
+				caracteres especiales! </small>
+		</div>
+
+		<ion-item>
+			<ion-input formControlName="nombre" label="Nombre" labelPlacement="floating"
+				placeholder="Nombre"></ion-input>
+		</ion-item>
+
+		<div style="color: red; margin-bottom: 10px;"
+			*ngIf="registerForm.get('nombre')?.invalid && registerForm.get('nombre')?.touched">
+			<small *ngIf="registerForm.get('nombre')?.errors?.['required']">¡Tienes que ingresar un nombre! </small>
+			<small *ngIf="registerForm.get('nombre')?.errors?.['minlength']">¡El nombre tiene que tener mas de 3
+				caracteres! </small>
+			<small *ngIf="registerForm.get('nombre')?.errors?.['maxlength']">¡El nombre tiene que tener menos de 20
+				caracteres! </small>
+			<small *ngIf="registerForm.get('nombre')?.errors?.['pattern']">¡El nombre no puede contener espacios o
+				caracteres especiales! </small>
+		</div>
+
+		<ion-item>
+			<ion-input formControlName="apellido" label="Apellido" labelPlacement="floating"
+				placeholder="Apellido"></ion-input>
+		</ion-item>
+
+		<div style="color: red; margin-bottom: 10px;"
+			*ngIf="registerForm.get('apellido')?.invalid && registerForm.get('apellido')?.touched">
+			<small *ngIf="registerForm.get('apellido')?.errors?.['required']">¡Tienes que ingresar un apellido! </small>
+			<small *ngIf="registerForm.get('apellido')?.errors?.['minlength']">¡El apellido tiene que tener mas de 3
+				caracteres! </small>
+			<small *ngIf="registerForm.get('apellido')?.errors?.['maxlength']">¡El apellido tiene que tener menos de 20
+				caracteres! </small>
+			<small *ngIf="registerForm.get('apellido')?.errors?.['pattern']">¡El apellido no puede contener espacios o
+				caracteres especiales! </small>
+		</div>
+
+		<ion-item>
+			<ion-input formControlName="correo" label="Correo" type="email" labelPlacement="floating"
+				placeholder="Correo"></ion-input>
+		</ion-item>
+
+		<div style="color: red; margin-bottom: 10px;"
+			*ngIf="registerForm.get('correo')?.invalid && registerForm.get('correo')?.touched">
+			<small *ngIf="registerForm.get('correo')?.errors?.['required']">¡Tienes que ingresar un correo! </small>
+			<small *ngIf="registerForm.get('correo')?.errors?.['email']">¡El correo ingresado no es valido! </small>
+		</div>
+
+		<ion-item>
+			<ion-input formControlName="telefono" label="Telefono" type="tel" labelPlacement="floating"
+				placeholder="Telefono"></ion-input>
+		</ion-item>
+
+		<div style="color: red; margin-bottom: 10px;"
+			*ngIf="registerForm.get('telefono')?.invalid && registerForm.get('telefono')?.touched">
+			<small *ngIf="registerForm.get('telefono')?.errors?.['required']">¡Tienes que ingresar un telefono! </small>
+			<small *ngIf="registerForm.get('telefono')?.errors?.['minlength']">¡El telefono tiene que tener mas de 3
+				digitos! </small>
+			<small *ngIf="registerForm.get('telefono')?.errors?.['maxlength']">¡El telefono tiene que tener menos de 9
+				digitos! </small>
+			<small *ngIf="registerForm.get('telefono')?.errors?.['pattern']">¡El telefono ingresado no es valido!
+			</small>
+		</div>
+
+		<ion-item>
+			<ion-input formControlName="password" label="Contraseña" type="password" minLenght="4" maxLength="8"
+				labelPlacement="floating" placeholder="Contraseña"></ion-input>
+		</ion-item>
+
+		<div style="color: red; margin-bottom: 10px;"
+			*ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+			<small *ngIf="registerForm.get('password')?.errors?.['required']">¡Tienes que ingresar una contraseña!
+			</small>
+			<small *ngIf="registerForm.get('password')?.errors?.['minlength']">¡La contraseña tiene que tener mas de 4
+				caracteres! </small>
+			<small *ngIf="registerForm.get('password')?.errors?.['maxlength']">¡La contraseña tiene que tener menos de 8
+				caracteres! </small>
+			<small *ngIf="registerForm.get('password')?.errors?.['pattern']">¡La contraseña debe tener al menos un
+				numero! </small>
+		</div>
+
+		<ion-item>
+			<ion-input formControlName="repeat_password" label="Repetir Contraseña" type="password" minLenght="4"
+				maxLength="8" labelPlacement="floating" placeholder="Repetir Contraseña"></ion-input>
+		</ion-item>
+
+		<div style="color: red; margin-bottom: 10px;"
+			*ngIf="registerForm.get('repeat_password')?.invalid && registerForm.get('repeat_password')?.touched">
+			<small *ngIf="registerForm.get('repeat_password')?.errors?.['required']">¡Tienes que ingresar la
+				confirmacion de la
+				contraseña!
+			</small>
+			<small *ngIf="registerForm.get('repeat_password')?.errors?.['mismatch']">¡Las contraseñas no coinciden!
+			</small>
+		</div>
+
+		<ion-item>
+			<ion-label position="stacked">¿Con que perfil te vas a registar?</ion-label>
+			<ion-select formControlName="perfil" placeholder="Seleccionar Perfil">
+				<ion-select-option value="conductor">Perfil de Conductor</ion-select-option>
+				<ion-select-option value="pasajero">Perfil de Pasajero</ion-select-option>
+			</ion-select>
+		</ion-item>
+
+		<div style="color: red; margin-bottom: 10px;"
+			*ngIf="registerForm.get('perfil')?.invalid && registerForm.get('perfil')?.touched">
+			<small *ngIf="registerForm.get('perfil')?.errors?.['required']">¡Tienes que seleccionar una opcion!
+			</small>
+		</div>
+
+		<ion-button expand="block" color="dark" type="submit">Registrarme</ion-button>
+	</form>
+</ion-content>

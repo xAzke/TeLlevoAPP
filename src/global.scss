@@ -43,10 +43,43 @@
 
 .logo {
     max-width: 100%;
-    height: auto;   
+    height: auto;
 }
 
 .text {
     margin-top: 20px;
     font-size: 16px;
+}
+
+html,
+body {
+    margin: 0;
+    height: 100%;
+    /* Asegura que el body ocupe toda la altura */
+    overflow: hidden;
+    /* Evita el scroll si la imagen es grande */
+    display: flex;
+    justify-content: center;
+    /* Centra horizontalmente */
+    align-items: center;
+    /* Centra verticalmente */
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.bottom-button {
+    position: fixed;
+    bottom: 10px;
+    /* Ajusta el espacio desde el borde inferior si es necesario */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    /* Asegura que el botón esté encima de la imagen */
+    width: 90%;
+    /* Ajusta el ancho del botón según sea necesario */
 }

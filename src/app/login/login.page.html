@@ -1,29 +1,39 @@
 <ion-header [translucent]="true">
 	<ion-toolbar>
-		<ion-title>login</ion-title>
+		<ion-title class="ion-text-center">TeLlevoAPP</ion-title>
 	</ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
 	<div class="logo-container">
-		<img #logo class="logo" src="../../assets/icon/logoduocuc.png" alt="Logotipo de DuocUC">
-		<p #text class="text">Login super seguro de mi super aplicacion.</p>
+		<img #logo class="logo center" src="../../assets/icon/logoduocuc.png" alt="Logotipo de DuocUC">
+		<p #text class="text ion-text-center">Login super seguro de mi super aplicacion.</p>
 	</div>
 
-	<form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+	<form [formGroup]="loginForm" (ngSubmit)="onLogin()" style="padding: 30px;">
 		<ion-item>
-			<ion-label position="stacked">Usuario</ion-label>
-			<ion-input formControlName="username" type="text" placeholder="Ingrese su Usuario"
-				maxlength="8"></ion-input>
+			<ion-input formControlName="username" label="Usuario" labelPlacement="floating" placeholder=""></ion-input>
 		</ion-item>
 
-		<div *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">Error Usuario</div>
+		<div style="color: red; margin-bottom: 10px;"
+			*ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+			<small *ngIf="loginForm.get('username')?.errors?.['required']">¡Tienes que ingresar un usuario! </small>
+		</div>
 
 		<ion-item>
-			<ion-label position="stacked">Contraseña</ion-label>
-			<ion-input formControlName="password" type="password" placeholder="****" maxlength="4"></ion-input>
+			<ion-input formControlName="password" type="password" label="Contraseña" labelPlacement="floating"
+				placeholder="Contraseña"></ion-input>
 		</ion-item>
 
-		<ion-button expand="block" color="dark" type="submit">Ingresar</ion-button>
+		<div style="color: red; margin-bottom: 10px;"
+			*ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+			<small *ngIf="loginForm.get('password')?.errors?.['required']">¡Tienes que ingresar una contraseña! </small>
+		</div>
+
+		<a href="/register">
+			<p class="ion-text-left"><fa-icon [icon]="'user'"></fa-icon> ¿No tienes cuenta? Registrate aca.</p>
+		</a>
+		<ion-button expand="block" color="dark" type="submit" style="margin-top: 15px;"><fa-icon
+				[icon]="'right-to-bracket'" style="padding-right: 5px;">Ingresar</fa-icon></ion-button>
 	</form>
 </ion-content>

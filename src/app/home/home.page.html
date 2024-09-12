@@ -1,42 +1,41 @@
-<ion-header [translucent]="true">
-	<ion-toolbar>
-		<ion-title>
-			Primer Proyecto
-			<ion-item>
-				<p>Usuario {{ var_username }}</p>
-			</ion-item>
-			<ion-item>
-				<p>Contraseña {{ var_username }}</p>
-			</ion-item>
-		</ion-title>
-	</ion-toolbar>
-</ion-header>
+<ion-menu contentId="main-content" type="push">
+    <ion-header>
+        <ion-toolbar>
+            <ion-title>¡Hola! {{ userName }}</ion-title>
+        </ion-toolbar>
+    </ion-header>
 
-<ion-content [fullscreen]="true">
-	<ion-card>
-		<ion-card-header>
-			<ion-card-title>Datos Personales</ion-card-title>
-			<ion-card-subtitle>Formulario</ion-card-subtitle>
-		</ion-card-header>
+    <ion-content class="ion-padding">
+        <ion-button expand="block" color="dark"><fa-icon [icon]="'user'"
+                style="padding-right: 5px;"></fa-icon>Perfil</ion-button>
+        <ion-button expand="block" color="dark"><fa-icon [icon]="'wallet'"
+                style="padding-right: 5px;"></fa-icon>Billetera</ion-button>
+        <ion-button expand="block" color="dark"><fa-icon [icon]="'phone'"
+                style="padding-right: 5px;"></fa-icon>Soporte</ion-button>
+        <ion-button (click)="onLogout()" expand="block" color="dark"><fa-icon [icon]="'right-to-bracket'"
+                style="padding-right: 5px;"></fa-icon>Salir</ion-button>
+    </ion-content>
+</ion-menu>
 
-		<ion-item>
-			<ion-label position="stacked">Nombre</ion-label>
-			<ion-input type="text" placeholder="Ingresar Nombre"></ion-input>
-		</ion-item>
+<div class="ion-page" id="main-content">
+    <ion-header>
+        <ion-toolbar>
+            <ion-buttons slot="start">
+                <ion-menu-button></ion-menu-button>
+            </ion-buttons>
+            <ion-title>TeLlevoAPP</ion-title>
+        </ion-toolbar>
+    </ion-header>
 
-		<ion-item>
-			<ion-label position="stacked">Edad</ion-label>
-			<ion-input type="number" placeholder="Ingresar Edad" max="10" min="2"></ion-input>
-		</ion-item>
-
-		<ion-item>
-			<ion-label position="stacked">Edad</ion-label>
-			<ion-select placeholder="Seleccione Carrera">
-				<ion-select-option value="informatica">Informatica</ion-select-option>
-				<ion-select-option value="analista">Analista</ion-select-option>
-			</ion-select>
-		</ion-item>
-
-		<ion-button expand="block">Registrar</ion-button>
-	</ion-card>
-</ion-content>
+    <ion-content>
+        <ion-searchbar animated="true" placeholder="Direccion"></ion-searchbar>
+        <!-- <div class="container"> -->
+        <p class="ion-text-center">Imagen Referencial</p>
+        <img class="center" src="../../assets/imagenMapa.png" style="max-width: 400px;">
+        <ion-button expand="block" color="dark" class="bottom-button"
+            style="padding-left: 100px; padding-right: 100px;">
+            <fa-icon [icon]="'magnifying-glass'" style="padding-right: 5px;"></fa-icon>Buscar Viaje
+        </ion-button>
+        <!-- </div> -->
+    </ion-content>
+</div>
