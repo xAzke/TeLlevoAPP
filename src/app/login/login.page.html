@@ -7,7 +7,7 @@
 <ion-content [fullscreen]="true">
 	<div class="logo-container">
 		<img #logo class="logo center" src="../../assets/icon/logoduocuc.png" alt="Logotipo de DuocUC">
-		<p #text class="text ion-text-center">Login super seguro de mi super aplicacion.</p>
+		<p #text class="text ion-text-center">TeLlevoAPP.</p>
 	</div>
 
 	<form [formGroup]="loginForm" (ngSubmit)="onLogin()" style="padding: 30px;">
@@ -28,12 +28,22 @@
 		<div style="color: red; margin-bottom: 10px;"
 			*ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
 			<small *ngIf="loginForm.get('password')?.errors?.['required']">¡Tienes que ingresar una contraseña! </small>
+			<small *ngIf="loginForm.get('password')?.errors?.['minlength']">¡La contraseña tiene que tener mas de 4
+				caracteres! </small>
+			<small *ngIf="loginForm.get('password')?.errors?.['maxlength']">¡La contraseña tiene que tener menos de 8
+				caracteres! </small>
 		</div>
 
 		<a href="/register">
-			<p class="ion-text-left"><fa-icon [icon]="'user'"></fa-icon> ¿No tienes cuenta? Registrate aca.</p>
+			<p class="ion-text-light"><fa-icon [icon]="'lock'"></fa-icon> ¿Olvidaste tu contraseña?</p>
 		</a>
+
 		<ion-button expand="block" color="dark" type="submit" style="margin-top: 15px;"><fa-icon
-				[icon]="'right-to-bracket'" style="padding-right: 5px;">Ingresar</fa-icon></ion-button>
+				[icon]="'right-to-bracket'" style="padding-right: 5px;"></fa-icon> Ingresar</ion-button>
+		
+		<a href="/register" style="text-decoration: none;">
+			<ion-button expand="block" color="dark"><fa-icon [icon]="'user'" style="padding-right: 5px;"></fa-icon> Registrarme</ion-button>
+		</a>
+		
 	</form>
 </ion-content>

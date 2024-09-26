@@ -12,13 +12,13 @@
 		</ion-item>
 
 		<div style="color: red; margin-bottom: 10px;"
-			*ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched">
-			<small *ngIf="registerForm.get('username')?.errors?.['required']">¡Tienes que ingresar un usuario! </small>
-			<small *ngIf="registerForm.get('username')?.errors?.['minlength']">¡El usuario tiene que tener mas de 3
+			*ngIf="registerForm.get('usuario')?.invalid && registerForm.get('usuario')?.touched">
+			<small *ngIf="registerForm.get('usuario')?.errors?.['required']">¡Tienes que ingresar un usuario! </small>
+			<small *ngIf="registerForm.get('usuario')?.errors?.['minlength']">¡El usuario tiene que tener mas de 3
 				caracteres! </small>
-			<small *ngIf="registerForm.get('username')?.errors?.['maxlength']">¡El usuario tiene que tener menos de 20
+			<small *ngIf="registerForm.get('usuario')?.errors?.['maxlength']">¡El usuario tiene que tener menos de 20
 				caracteres! </small>
-			<small *ngIf="registerForm.get('username')?.errors?.['pattern']">¡El nombre no puede contener espacios o
+			<small *ngIf="registerForm.get('usuario')?.errors?.['pattern']">¡El nombre no puede contener espacios o
 				caracteres especiales! </small>
 		</div>
 
