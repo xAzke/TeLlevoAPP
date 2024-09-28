@@ -19,8 +19,8 @@ export class HomePage implements OnInit {
 	ngOnInit() {
 		const navigation = this.router.getCurrentNavigation();
         if (navigation?.extras.state) {
-            const { username } = navigation.extras.state as { username: string };
-			this.userName = username;
+            const { userName } = navigation.extras.state as { userName: string };
+			this.userName = userName;
         }
 	}
 

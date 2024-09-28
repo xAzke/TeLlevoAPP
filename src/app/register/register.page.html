@@ -127,6 +127,6 @@
 			</small>
 		</div>
 
-		<ion-button expand="block" color="dark" type="submit">Registrarme</ion-button>
+		<ion-button expand="block" color="dark" type="submit" [disabled]="!registerForm.valid">Registrarme</ion-button>
 	</form>
 </ion-content>

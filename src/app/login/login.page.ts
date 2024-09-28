@@ -10,6 +10,7 @@ import {
 import { AnimationController, Animation, IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { IconsModule } from '../icons.module';
+import { UserService } from '../user.service';
 
 @Component({
     selector: 'app-login',
@@ -39,7 +40,8 @@ export class LoginPage {
     constructor(
         private fb: FormBuilder,
         private router: Router,
-        private animationCtrl: AnimationController
+        private animationCtrl: AnimationController,
+        private returnService: UserService
     ) {
         this.loginForm = this.fb.group({
             username: [
@@ -65,12 +67,28 @@ export class LoginPage {
 
     onLogin() {
         if (this.loginForm.valid) {
-            const username = this.loginForm.get('username')?.value;
-            const password = this.loginForm.get('password')?.value;
+            const userName = this.loginForm.get('username')?.value;
+            const userPass = this.loginForm.get('password')?.value;
 
-            this.router.navigate(['home'], {
-                state: { username, password },
-            });
+            var responseService : Boolean = this.returnService.validateService(userName, userPass)
+            if (responseService) {
+                this.router.navigate(['home'], {
+                    state: { userName },
+                });
+            } else {
+                alert("¡Los datos ingresados no son validos!")
+            }
+        }
+    }
+
+    clickHandler(route: String) {
+        switch (route) {
+            case "register":
+                this.router.navigate(['register'])
+                break;
+        
+            default:
+                break;
         }
     }
 

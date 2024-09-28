@@ -38,12 +38,7 @@
 			<p class="ion-text-light"><fa-icon [icon]="'lock'"></fa-icon> ¿Olvidaste tu contraseña?</p>
 		</a>
 
-		<ion-button expand="block" color="dark" type="submit" style="margin-top: 15px;"><fa-icon
-				[icon]="'right-to-bracket'" style="padding-right: 5px;"></fa-icon> Ingresar</ion-button>
-		
-		<a href="/register" style="text-decoration: none;">
-			<ion-button expand="block" color="dark"><fa-icon [icon]="'user'" style="padding-right: 5px;"></fa-icon> Registrarme</ion-button>
-		</a>
-		
+		<ion-button expand="block" color="dark" type="submit" style="margin-top: 15px;" [disabled]="!loginForm.valid"><fa-icon [icon]="'right-to-bracket'" style="padding-right: 5px;"></fa-icon> Ingresar</ion-button>
+		<ion-button expand="block" color="dark" (click)="clickHandler('register')"><fa-icon [icon]="'user'" style="padding-right: 5px;"></fa-icon> Registrarme</ion-button>
 	</form>
 </ion-content>
