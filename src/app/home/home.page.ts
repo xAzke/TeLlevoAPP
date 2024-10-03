@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { IconsModule } from '../icons.module';
 
@@ -9,7 +9,7 @@ import { IconsModule } from '../icons.module';
 	templateUrl: 'home.page.html',
 	styleUrls: ['home.page.scss'],
 	standalone: true,
-	imports: [IonicModule, FormsModule, IconsModule],
+	imports: [IonicModule, FormsModule, IconsModule, RouterModule],
 })
 export class HomePage implements OnInit {
 	userName!: string;

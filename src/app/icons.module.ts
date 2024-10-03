@@ -10,7 +10,8 @@ import {
     faWallet,
     faPhone,
     faMagnifyingGlass,
-    faMap
+    faMap,
+    faDoorOpen
 } from '@fortawesome/free-solid-svg-icons';
 
 @NgModule({
@@ -19,6 +20,6 @@ import {
 })
 export class IconsModule {
     constructor(library: FaIconLibrary) {
-        library.addIcons(faCoffee, faUser, faHome, faRightToBracket, faLock, faWallet, faPhone, faMagnifyingGlass, faMap);
+        library.addIcons(faCoffee, faUser, faHome, faRightToBracket, faLock, faWallet, faPhone, faMagnifyingGlass, faMap, faDoorOpen, faMap);
     }
 }

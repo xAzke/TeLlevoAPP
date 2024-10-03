@@ -1,4 +1,4 @@
-<ion-menu contentId="main-content">
+<ion-menu side="start" menuId="first" contentId="main-content">
     <ion-header>
         <ion-toolbar>
             <ion-title>¡Hola! {{ userName }}</ion-title>
@@ -6,13 +6,25 @@
     </ion-header>
 
     <ion-content class="ion-padding">
-        <ion-button expand="block" color="dark"><fa-icon [icon]="'user'"></fa-icon>Perfil</ion-button>
-        <ion-button expand="block" color="dark"><fa-icon [icon]="'wallet'"
-                style="padding-right: 5px;"></fa-icon>Billetera</ion-button>
-        <ion-button expand="block" color="dark"><fa-icon [icon]="'phone'"
-                style="padding-right: 5px;"></fa-icon>Soporte</ion-button>
-        <ion-button (click)="onLogout()" expand="block" color="dark"><fa-icon [icon]="'right-to-bracket'"
-                style="padding-right: 5px;"></fa-icon>Salir</ion-button>
+        <ion-list>
+            <ion-menu-toggle>  
+                <ion-item routerLink="/home" routerLinkActive="active">Inicio
+                    <fa-icon [icon]="'home'" slot="start"></fa-icon>
+                </ion-item>
+            </ion-menu-toggle>
+
+            <ion-menu-toggle>  
+                <ion-item routerLink="/map" routerLinkActive="active">Mapa
+                    <fa-icon [icon]="'map'" slot="start"></fa-icon>
+                </ion-item>
+            </ion-menu-toggle>
+
+            <ion-menu-toggle>  
+                <ion-item routerLink="/login" routerLinkActive="active">Salir
+                    <fa-icon [icon]="'door-open'" slot="start"></fa-icon>
+                </ion-item>
+            </ion-menu-toggle>
+        </ion-list>
     </ion-content>
 </ion-menu>
 
