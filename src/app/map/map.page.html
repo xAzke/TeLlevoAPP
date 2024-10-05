@@ -1,0 +1,14 @@
+<ion-header [translucent]="true">
+	<ion-toolbar color="primary">
+		<ion-title>Mapa</ion-title>
+
+		<!-- Input Autocompletado -->
+		<input type="text" id="autocomplete">
+		<ion-button expand="block" (click)="autocompleteLocation()">Indicaciones del Trayecto</ion-button>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+	<div id="map"></div>
+	<div id="trayecto"></div>
+</ion-content>
