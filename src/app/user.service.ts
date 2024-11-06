@@ -1,19 +1,27 @@
 import { Injectable } from "@angular/core";
+import { StorageService } from "./storage.service";
 
 @Injectable({
-  providedIn: "root",
+    providedIn: "root",
 })
 export class UserService {
-  constructor() {}
+    constructor(private storageService: StorageService) {}
 
-  // CREAR METODO PARA VALIDAR EL INGRESO DEL USUARIO DESDE UN SERVICIO
+    // CREAR METODO PARA VALIDAR EL INGRESO DEL USUARIO DESDE UN SERVICIO
 
-  validateService(userName: String, userPass: Number): Boolean {
-    // USAREMOS LOGIN = ADMIN, PASSWORD = 1234
-    if (userName == "admin" && userPass == 1234) {
-      return true;
-    } else {
-      return false;
+    async validateService(
+        userName: string,
+        userPass: number
+    ): Promise<boolean> {
+        let userValid = await this.storageService.getItem("usuarios", userName);
+        if (userValid) {
+            if (userValid.password == userPass) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        return false;
     }
-  }
 }

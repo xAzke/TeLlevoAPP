@@ -1,31 +1,40 @@
-import { Routes } from '@angular/router';
+import { Routes } from "@angular/router";
 
 export const routes: Routes = [
     {
-        path: 'login',
+        path: "login",
         loadComponent: () =>
-            import('./login/login.page').then((m) => m.LoginPage),
+            import("./login/login.page").then((m) => m.LoginPage),
     },
     {
-        path: 'register',
+        path: "register",
         loadComponent: () =>
-            import('./register/register.page').then((m) => m.RegisterPage),
+            import("./register/register.page").then((m) => m.RegisterPage),
     },
     {
-        path: '',
-        redirectTo: 'login',
-        pathMatch: 'full',
+        path: "",
+        redirectTo: "login",
+        pathMatch: "full",
     },
     {
-        path: 'home',
-        loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
-    },  {
-    path: 'tabs',
-    loadComponent: () => import('./tabs/tabs.page').then( m => m.TabsPage)
-  },
-  {
-    path: 'map',
-    loadComponent: () => import('./map/map.page').then( m => m.MapPage)
-  },
+        path: "home",
+        loadComponent: () => import("./home/home.page").then((m) => m.HomePage),
 
+        children: [
+            {
+                path: "map",
+                loadComponent: () =>
+                    import("./map/map.page").then((m) => m.MapPage),
+            },
+        ],
+    },
+    // {
+    //     path: "tabs",
+
+    //     // loadComponent: () => import("./tabs/tabs.page").then((m) => m.TabsPage),
+    // },
+    // {
+    //     path: "map",
+    //     loadComponent: () => import("./map/map.page").then((m) => m.MapPage),
+    // },
 ];

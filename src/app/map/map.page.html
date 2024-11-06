@@ -1,14 +1,32 @@
-<ion-header [translucent]="true">
-	<ion-toolbar color="primary">
-		<ion-title>Mapa</ion-title>
+<ion-menu side="start" menuId="first" contentId="main-content">
+	<ion-content class="ion-padding">
+		<ion-list>
+			<ion-menu-toggle>
+				<ion-item routerLink="/home" routerLinkActive="active">Perfil
+					<fa-icon [icon]="'home'" slot="start"></fa-icon>
+				</ion-item>
+			</ion-menu-toggle>
 
-		<!-- Input Autocompletado -->
-		<input type="text" id="autocomplete" style="color: black;">
-		<ion-button expand="block" (click)="calculateRoute()">Indicaciones del Trayecto</ion-button>
-	</ion-toolbar>
-</ion-header>
+			<ion-menu-toggle>
+				<ion-item routerLink="/login" routerLinkActive="active">Salir
+					<fa-icon [icon]="'door-open'" slot="start"></fa-icon>
+				</ion-item>
+			</ion-menu-toggle>
+		</ion-list>
+	</ion-content>
+</ion-menu>
 
 <ion-content [fullscreen]="true">
-	<div id="map"></div>
-	<div id="trayecto"></div>
+	<ion-searchbar #searchBar animated="true" placeholder="Direccion" (ionClear)="onClearSearch()"></ion-searchbar>
+
+	<div id="map">
+		<div id="trayecto"></div>
+	</div>
+
+	<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+		<ion-fab-button (click)="calculateRoute()">
+			<fa-icon [icon]="'play'" slot="start"></fa-icon>
+			Iniciar
+		</ion-fab-button>
+	</ion-fab>
 </ion-content>

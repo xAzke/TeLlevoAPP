@@ -20,6 +20,7 @@
 				caracteres! </small>
 			<small *ngIf="registerForm.get('usuario')?.errors?.['pattern']">¡El nombre no puede contener espacios o
 				caracteres especiales! </small>
+			<small *ngIf="registerForm.get('usuario')?.errors?.['taken']">¡Este usuario ya se encuentra en uso!</small>
 		</div>
 
 		<ion-item>

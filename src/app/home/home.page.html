@@ -7,19 +7,19 @@
 
     <ion-content class="ion-padding">
         <ion-list>
-            <ion-menu-toggle>  
+            <ion-menu-toggle>
                 <ion-item routerLink="/home" routerLinkActive="active">Inicio
                     <fa-icon [icon]="'home'" slot="start"></fa-icon>
                 </ion-item>
             </ion-menu-toggle>
 
-            <ion-menu-toggle>  
+            <ion-menu-toggle>
                 <ion-item routerLink="/map" routerLinkActive="active">Mapa
                     <fa-icon [icon]="'map'" slot="start"></fa-icon>
                 </ion-item>
             </ion-menu-toggle>
 
-            <ion-menu-toggle>  
+            <ion-menu-toggle>
                 <ion-item routerLink="/login" routerLinkActive="active">Salir
                     <fa-icon [icon]="'door-open'" slot="start"></fa-icon>
                 </ion-item>
@@ -39,14 +39,21 @@
     </ion-header>
 
     <ion-content>
-        <ion-searchbar animated="true" placeholder="Direccion"></ion-searchbar>
-        <!-- <div class="container"> -->
-        <p class="ion-text-center">Imagen Referencial</p>
-        <img class="center" src="../../assets/imagenMapa.png" style="max-width: 400px;">
-        <ion-button expand="block" color="dark" class="bottom-button"
-            style="padding-left: 100px; padding-right: 100px;">
-            <fa-icon [icon]="'magnifying-glass'" style="padding-right: 5px;"></fa-icon>Buscar Viaje
-        </ion-button>
-        <!-- </div> -->
+        <ion-tabs>
+            <ion-tab-bar slot="bottom">
+                <ion-tab-button tab="viajes">
+                    <fa-icon [icon]="'car'"></fa-icon>
+                    Viajes
+                </ion-tab-button>
+                <ion-tab-button tab="map">
+                    <fa-icon [icon]="'map'"></fa-icon>
+                    Mapa
+                </ion-tab-button>
+                <ion-tab-button tab="perfil">
+                    <fa-icon [icon]="'user'"></fa-icon>
+                    Perfil
+                </ion-tab-button>
+            </ion-tab-bar>
+        </ion-tabs>
     </ion-content>
 </div>
