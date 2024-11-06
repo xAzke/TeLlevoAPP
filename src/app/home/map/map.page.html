@@ -24,9 +24,6 @@
 	</div>
 
 	<ion-fab vertical="bottom" horizontal="end" slot="fixed">
-		<ion-fab-button (click)="calculateRoute()">
-			<fa-icon [icon]="'play'" slot="start"></fa-icon>
-			Iniciar
-		</ion-fab-button>
+		<ion-button (click)="calculateRoute()"><fa-icon [icon]="'play'" slot="start"></fa-icon></ion-button>
 	</ion-fab>
 </ion-content>

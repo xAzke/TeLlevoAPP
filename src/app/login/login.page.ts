@@ -11,6 +11,7 @@ import { AnimationController, Animation, IonicModule } from "@ionic/angular";
 import { Router } from "@angular/router";
 import { IconsModule } from "../icons.module";
 import { UserService } from "../user.service";
+import { StorageService } from "../storage.service";
 
 @Component({
     selector: "app-login",
@@ -41,7 +42,8 @@ export class LoginPage {
         private fb: FormBuilder,
         private router: Router,
         private animationCtrl: AnimationController,
-        private returnService: UserService
+        private returnService: UserService,
+        private storageService: StorageService
     ) {
         this.loginForm = this.fb.group({
             username: [
@@ -49,7 +51,7 @@ export class LoginPage {
                 [
                     Validators.required,
                     Validators.minLength(3),
-                    Validators.maxLength(8),
+                    Validators.maxLength(16),
                     Validators.pattern("^[a-zA-Z0-9]*$"),
                 ],
             ],
@@ -73,8 +75,16 @@ export class LoginPage {
             var responseService: Boolean =
                 await this.returnService.validateService(userName, userPass);
             if (responseService) {
-                this.router.navigate(["home/map"], {
-                    state: { userName },
+                const dataUser = await this.storageService.getItem(
+                    "usuarios",
+                    userName
+                );
+
+                console.log(dataUser);
+                this.returnService.setUserData(dataUser);
+
+                this.router.navigate(["home"], {
+                    state: { userName, dataUser },
                 });
             } else {
                 alert("¡Los datos ingresados no son validos!");

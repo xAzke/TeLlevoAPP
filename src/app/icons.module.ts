@@ -14,6 +14,7 @@ import {
     faDoorOpen,
     faCar,
     faPlay,
+    faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 
 @NgModule({
@@ -35,7 +36,8 @@ export class IconsModule {
             faDoorOpen,
             faMap,
             faCar,
-            faPlay
+            faPlay,
+            faPlus
         );
     }
 }

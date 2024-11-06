@@ -1,30 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
-import { IconsModule } from '../icons.module';
+import { Component, OnInit } from "@angular/core";
+import { FormsModule } from "@angular/forms";
+import { Router, RouterModule } from "@angular/router";
+import { IonicModule } from "@ionic/angular";
+import { IconsModule } from "../icons.module";
+import { UserService } from "../user.service";
 
 @Component({
-	selector: 'app-home',
-	templateUrl: 'home.page.html',
-	styleUrls: ['home.page.scss'],
-	standalone: true,
-	imports: [IonicModule, FormsModule, IconsModule, RouterModule],
+    selector: "app-home",
+    templateUrl: "home.page.html",
+    styleUrls: ["home.page.scss"],
+    standalone: true,
+    imports: [IonicModule, FormsModule, IconsModule, RouterModule],
 })
 export class HomePage implements OnInit {
-	userName!: string;
+    userName!: string;
 
-	constructor(private router: Router) {}
+    constructor(private router: Router, private userService: UserService) {}
 
-	ngOnInit() {
-		const navigation = this.router.getCurrentNavigation();
-        if (navigation?.extras.state) {
-            const { userName } = navigation.extras.state as { userName: string };
-			this.userName = userName;
-        }
-	}
+    ngOnInit() {}
 
-	onLogout() {
-		this.router.navigate(['login']);
-	}
+    onLogout() {
+        this.router.navigate(["login"]);
+    }
 }

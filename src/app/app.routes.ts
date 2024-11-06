@@ -22,19 +22,24 @@ export const routes: Routes = [
 
         children: [
             {
+                path: "viajes",
+                loadComponent: () =>
+                    import("./home/viajes/viajes.page").then(
+                        (m) => m.ViajesPage
+                    ),
+            },
+            {
                 path: "map",
                 loadComponent: () =>
-                    import("./map/map.page").then((m) => m.MapPage),
+                    import("./home/map/map.page").then((m) => m.MapPage),
+            },
+            {
+                path: "perfil",
+                loadComponent: () =>
+                    import("./home/perfil/perfil.page").then(
+                        (m) => m.PerfilPage
+                    ),
             },
         ],
     },
-    // {
-    //     path: "tabs",
-
-    //     // loadComponent: () => import("./tabs/tabs.page").then((m) => m.TabsPage),
-    // },
-    // {
-    //     path: "map",
-    //     loadComponent: () => import("./map/map.page").then((m) => m.MapPage),
-    // },
 ];

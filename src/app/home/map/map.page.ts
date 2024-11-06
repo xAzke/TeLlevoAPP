@@ -7,7 +7,7 @@ import { IonicModule } from "@ionic/angular";
 // API KEY GOOGLE MAPS
 // AIzaSyC9i2S9SKxBwLmGYtnVuYvBwyiC0aCnOFg
 
-import { IconsModule } from "../icons.module";
+import { IconsModule } from "../../icons.module";
 
 declare var google: any;
 

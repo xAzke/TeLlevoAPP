@@ -5,7 +5,11 @@ import { StorageService } from "./storage.service";
     providedIn: "root",
 })
 export class UserService {
-    constructor(private storageService: StorageService) {}
+    userData: any;
+
+    constructor(private storageService: StorageService) {
+        this.userData = {};
+    }
 
     // CREAR METODO PARA VALIDAR EL INGRESO DEL USUARIO DESDE UN SERVICIO
 
@@ -23,5 +27,13 @@ export class UserService {
         }
 
         return false;
+    }
+
+    setUserData(userData: any) {
+        this.userData = userData;
+    }
+
+    getUserData() {
+        return this.userData;
     }
 }
