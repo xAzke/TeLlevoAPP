@@ -7,7 +7,7 @@
 
     <ion-content class="ion-padding">
         <ion-list>
-            <ion-menu-toggle>
+            <!-- <ion-menu-toggle>
                 <ion-item routerLink="/home" routerLinkActive="active">Inicio
                     <fa-icon [icon]="'home'" slot="start"></fa-icon>
                 </ion-item>
@@ -17,7 +17,7 @@
                 <ion-item routerLink="/map" routerLinkActive="active">Mapa
                     <fa-icon [icon]="'map'" slot="start"></fa-icon>
                 </ion-item>
-            </ion-menu-toggle>
+            </ion-menu-toggle> -->
 
             <ion-menu-toggle>
                 <ion-item routerLink="/login" routerLinkActive="active">Salir
@@ -41,11 +41,15 @@
     <ion-content>
         <ion-tabs>
             <ion-tab-bar slot="bottom">
+                <ion-tab-button tab="inicio">
+                    <fa-icon [icon]="'home'"></fa-icon>
+                    Inicio
+                </ion-tab-button>
                 <ion-tab-button tab="viajes">
                     <fa-icon [icon]="'car'"></fa-icon>
                     Viajes
                 </ion-tab-button>
-                <ion-tab-button tab="map">
+                <ion-tab-button tab="mapa">
                     <fa-icon [icon]="'map'"></fa-icon>
                     Mapa
                 </ion-tab-button>

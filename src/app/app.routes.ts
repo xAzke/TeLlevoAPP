@@ -17,28 +17,63 @@ export const routes: Routes = [
         pathMatch: "full",
     },
     {
-        path: "home",
-        loadComponent: () => import("./home/home.page").then((m) => m.HomePage),
+        path: "pasajero",
+        loadComponent: () =>
+            import("./pasajero/home.page").then((m) => m.HomePage),
 
         children: [
             {
+                path: "inicio",
+                loadComponent: () =>
+                    import("./pasajero/inicio/inicio.page").then(
+                        (m) => m.InicioPage
+                    ),
+            },
+            {
                 path: "viajes",
                 loadComponent: () =>
-                    import("./home/viajes/viajes.page").then(
+                    import("./pasajero/viajes/viajes.page").then(
                         (m) => m.ViajesPage
                     ),
             },
             {
-                path: "map",
+                path: "mapa",
                 loadComponent: () =>
-                    import("./home/map/map.page").then((m) => m.MapPage),
+                    import("./map/map.page").then((m) => m.MapPage),
             },
             {
                 path: "perfil",
                 loadComponent: () =>
-                    import("./home/perfil/perfil.page").then(
+                    import("./pasajero/perfil/perfil.page").then(
                         (m) => m.PerfilPage
                     ),
+            },
+        ],
+    },
+    {
+        path: "conductor",
+        loadComponent: () =>
+            import("./conductor/conductor.page").then((m) => m.ConductorPage),
+
+        children: [
+            {
+                path: "inicio",
+                loadComponent: () =>
+                    import("./conductor/inicio/inicio.page").then(
+                        (m) => m.InicioPage
+                    ),
+            },
+            {
+                path: "crear",
+                loadComponent: () =>
+                    import("./conductor/crear-viaje/crear-viaje.page").then(
+                        (m) => m.CrearViajePage
+                    ),
+            },
+            {
+                path: "mapa",
+                loadComponent: () =>
+                    import("./conductor/mapa/map.page").then((m) => m.MapaPage),
             },
         ],
     },

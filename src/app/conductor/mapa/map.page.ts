@@ -8,6 +8,7 @@ import { IonicModule } from "@ionic/angular";
 // AIzaSyC9i2S9SKxBwLmGYtnVuYvBwyiC0aCnOFg
 
 import { IconsModule } from "../../icons.module";
+import { Route, Router } from "@angular/router";
 
 declare var google: any;
 
@@ -18,11 +19,11 @@ declare var google: any;
     standalone: true,
     imports: [IonicModule, CommonModule, FormsModule, IconsModule],
 })
-export class MapPage implements OnInit {
+export class MapaPage implements OnInit {
     localMap: any;
     localMarker: any;
 
-    startPoint = { lat: -33.60511640177368, lng: -70.56124927637602 };
+    startPoint = { lat: -33.598390409180546, lng: -70.57847638963287 };
     searchedLocation: any;
 
     directionServices: any;
@@ -30,7 +31,7 @@ export class MapPage implements OnInit {
 
     @ViewChild("searchBar", { static: false }) searchBar!: IonSearchbar;
 
-    constructor() {}
+    constructor(private router: Router) {}
     ngOnInit() {
         this.drawMap();
         // this.searchDirection(this.localMap, this.localMarker);
@@ -118,5 +119,13 @@ export class MapPage implements OnInit {
         this.localMarker.setPosition(this.startPoint);
         this.localMap.setCenter(this.startPoint);
         this.localMap.setZoom(15);
+    }
+
+    markRoute() {
+        this.router.navigate(["/conductor/crear"], {
+            state: {
+                route: this.searchedLocation.getPlace().geometry.location,
+            },
+        });
     }
 }

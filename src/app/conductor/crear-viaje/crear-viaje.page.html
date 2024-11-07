@@ -1,0 +1,41 @@
+<ion-header [translucent]="true">
+	<ion-toolbar>
+		<ion-title class="ion-text-center">Registrate en TeLlevoAPP</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+	<form [formGroup]="travelForm" (ngSubmit)="addNewTravel()" style="padding: 30px">
+		<ion-item>
+			<ion-input formControlName="vehiculo" label="Vehiculo" labelPlacement="floating"
+				placeholder="Vehiculo"></ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-input formControlName="patente" label="Patente" labelPlacement="floating"
+				placeholder="Patente"></ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-input formControlName="capacidad" label="Capacidad" labelPlacement="floating"
+				placeholder="Capacidad del Vehiculo"></ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-input formControlName="costo" label="Costo" labelPlacement="floating"
+				placeholder="Costo por Persona"></ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-input formControlName="destino" label="Destino" labelPlacement="floating"
+				placeholder="Destino"></ion-input>
+		</ion-item>
+
+		<!-- <ion-item>
+			<ion-input formControlName="origen" label="Origen" labelPlacement="floating"
+				placeholder="Origen"></ion-input>
+		</ion-item> -->
+
+		<ion-button expand="block" color="dark" type="submit">Crear Viaje</ion-button>
+	</form>
+</ion-content>

@@ -37,8 +37,45 @@ export class StorageService {
         return this.singleObject;
     }
 
-    async updateItem(dataKey: string, jsonData: any) {}
-    async deleteItem(dataKey: string, dataIdentifier: string) {}
+    async updateItem(dataKey: string, jsonData: any) {
+        this.fullArray = (await this.localStorage?.get(dataKey)) || [];
+        let indexItem = this.fullArray.findIndex(
+            (valor) => valor.identificador == jsonData.identificador
+        );
 
-    async getAllItems(dataKey: string) {}
+        this.fullArray[indexItem] = jsonData;
+        await this.localStorage?.set(dataKey, this.fullArray);
+    }
+
+    async deleteItem(dataKey: string, dataIdentifier: string) {
+        this.fullArray = (await this.localStorage?.get(dataKey)) || [];
+        this.fullArray.forEach((value, index) => {
+            if (value.identificador == dataIdentifier) {
+                this.fullArray.splice(index, 1);
+            }
+        });
+
+        await this.localStorage?.set(dataKey, this.fullArray);
+    }
+
+    async getAllItems(dataKey: string) {
+        this.fullArray = (await this.localStorage?.get(dataKey)) || [];
+        return this.fullArray;
+    }
+
+    async getAllItemsByUser(dataKey: string, dataIdentifier: string) {
+        this.fullArray = (await this.localStorage?.get(dataKey)) || [];
+        this.fullArray = this.fullArray.filter(
+            (value) => value.usuario == dataIdentifier
+        );
+        return this.fullArray;
+    }
+
+    async getAllTravelsByUsuario(dataKey: string, dataIdentifier: string) {
+        this.fullArray = (await this.localStorage?.get(dataKey)) || [];
+        this.fullArray = this.fullArray.filter(
+            (value) => value.usuario_reserva == dataIdentifier
+        );
+        return this.fullArray;
+    }
 }

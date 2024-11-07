@@ -1,0 +1,28 @@
+<ion-header [translucent]="true">
+	<ion-toolbar>
+		<ion-title>inicio</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+	<ion-header collapse="condense">
+		<ion-toolbar>
+			<ion-title size="large">inicio</ion-title>
+		</ion-toolbar>
+	</ion-header>
+
+	<ion-list *ngFor="let travelData of travelList">
+		<ion-card>
+			<fa-icon [icon]="'location-dot'"></fa-icon>
+			<ion-label>
+				Vehiculo: {{travelData.vehiculo}} - Capacidad: {{travelData.capacidad}}
+				Costo: {{travelData.costo}} - Patente: {{travelData.patente}}
+			</ion-label>
+			<ion-button (click)="eliminarViaje(travelData.identificador)">Cancelar</ion-button>
+		</ion-card>
+	</ion-list>
+
+	<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+		<ion-button (click)="listarViajes()"><fa-icon [icon]="'arrows-rotate'"></fa-icon></ion-button>
+	</ion-fab>
+</ion-content>

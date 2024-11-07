@@ -5,11 +5,10 @@ import { StorageService } from "./storage.service";
     providedIn: "root",
 })
 export class UserService {
-    userData: any;
+    static userData: any = {};
+    static userName: string = "";
 
-    constructor(private storageService: StorageService) {
-        this.userData = {};
-    }
+    constructor(private storageService: StorageService) {}
 
     // CREAR METODO PARA VALIDAR EL INGRESO DEL USUARIO DESDE UN SERVICIO
 
@@ -30,10 +29,18 @@ export class UserService {
     }
 
     setUserData(userData: any) {
-        this.userData = userData;
+        UserService.userData = userData;
     }
 
     getUserData() {
-        return this.userData;
+        return UserService.userData;
+    }
+
+    setUserName(userName: string) {
+        UserService.userName = userName;
+    }
+
+    getUserName() {
+        return UserService.userName;
     }
 }

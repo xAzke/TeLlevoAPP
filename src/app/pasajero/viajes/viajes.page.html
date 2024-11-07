@@ -1,0 +1,50 @@
+<ion-content [fullscreen]="true">
+	<ion-list *ngFor="let travelData of travelList">
+		<ion-card>
+			<ion-card-header>
+				<ion-grid>
+					<ion-row class="ion-align-items-center">
+						<ion-col size="2" class="icon-column">
+							<fa-icon [icon]="'location-dot'"></fa-icon>
+						</ion-col>
+						<ion-col>
+							<ion-card-title>{{ travelData.vehiculo }}</ion-card-title>
+							<ion-card-subtitle>
+								Capacidad: {{ travelData.capacidad }} | Costo: ${{ travelData.costo }}
+							</ion-card-subtitle>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+			</ion-card-header>
+
+			<ion-card-content>
+				<ion-grid>
+					<ion-row class="ion-padding-vertical">
+						<ion-col>
+							<strong>Patente:</strong> {{ travelData.patente }}
+						</ion-col>
+						<ion-col>
+							<strong>Asientos Disponibles:</strong> {{ travelData.capacidad -
+							travelData.asientos_ocupados }}
+						</ion-col>
+					</ion-row>
+					<ion-row>
+						<ion-col>
+							<strong>Destino:</strong> {{ travelData.destino }}
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+			</ion-card-content>
+
+			<div class="ion-padding">
+				<ion-button expand="full" color="danger" (click)="cancelarReserva(travelData.identificador)">
+					Cancelar Reserva
+				</ion-button>
+			</div>
+		</ion-card>
+	</ion-list>
+
+	<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+		<ion-button (click)="listarViajesReservados()"><fa-icon [icon]="'arrows-rotate'"></fa-icon></ion-button>
+	</ion-fab>
+</ion-content>

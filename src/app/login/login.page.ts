@@ -80,16 +80,20 @@ export class LoginPage {
                     userName
                 );
 
-                console.log(dataUser);
+                this.returnService.setUserName(userName);
                 this.returnService.setUserData(dataUser);
 
-                this.router.navigate(["home"], {
-                    state: { userName, dataUser },
-                });
+                if (dataUser.perfil === "conductor") {
+                    return this.router.navigate(["conductor/inicio"]);
+                } else if (dataUser.perfil === "pasajero") {
+                    return this.router.navigate(["pasajero/inicio"]);
+                }
             } else {
                 alert("¡Los datos ingresados no son validos!");
             }
         }
+
+        return;
     }
 
     clickHandler(route: String) {

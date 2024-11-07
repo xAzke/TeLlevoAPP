@@ -1,0 +1,44 @@
+<ion-menu side="start" menuId="first" contentId="main-content">
+	<ion-content class="ion-padding">
+		<ion-list>
+			<ion-menu-toggle>
+				<ion-item routerLink="/home" routerLinkActive="active">Perfil
+					<fa-icon [icon]="'home'" slot="start"></fa-icon>
+				</ion-item>
+			</ion-menu-toggle>
+
+			<ion-menu-toggle>
+				<ion-item routerLink="/login" routerLinkActive="active">Salir
+					<fa-icon [icon]="'door-open'" slot="start"></fa-icon>
+				</ion-item>
+			</ion-menu-toggle>
+		</ion-list>
+	</ion-content>
+</ion-menu>
+
+<ion-header [translucent]="true">
+	<ion-toolbar>
+		<ion-title>TeLlevoAPP - Conductor</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+	<ion-header collapse="condense">
+		<ion-toolbar>
+			<ion-title size="large">TeLlevoAPP - Conductor</ion-title>
+		</ion-toolbar>
+	</ion-header>
+
+	<ion-tabs>
+		<ion-tab-bar slot="bottom">
+			<ion-tab-button tab="inicio">
+				<fa-icon [icon]="'home'"></fa-icon>
+				Inicio
+			</ion-tab-button>
+			<ion-tab-button tab="crear">
+				<fa-icon [icon]="'car'"></fa-icon>
+				Viajes
+			</ion-tab-button>
+		</ion-tab-bar>
+	</ion-tabs>
+</ion-content>

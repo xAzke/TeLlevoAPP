@@ -15,6 +15,8 @@ import {
     faCar,
     faPlay,
     faPlus,
+    faLocationDot,
+    faArrowsRotate,
 } from "@fortawesome/free-solid-svg-icons";
 
 @NgModule({
@@ -37,7 +39,9 @@ export class IconsModule {
             faMap,
             faCar,
             faPlay,
-            faPlus
+            faPlus,
+            faLocationDot,
+            faArrowsRotate
         );
     }
 }
