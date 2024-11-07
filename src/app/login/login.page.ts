@@ -10,8 +10,9 @@ import {
 import { AnimationController, Animation, IonicModule } from "@ionic/angular";
 import { Router } from "@angular/router";
 import { IconsModule } from "../icons.module";
-import { UserService } from "../user.service";
-import { StorageService } from "../storage.service";
+import { UserService } from "../services/user.service";
+import { StorageService } from "../services/storage.service";
+import { NotificationsService } from "../services/notifications.service";
 
 @Component({
     selector: "app-login",
@@ -43,7 +44,8 @@ export class LoginPage {
         private router: Router,
         private animationCtrl: AnimationController,
         private returnService: UserService,
-        private storageService: StorageService
+        private storageService: StorageService,
+        private notificationService: NotificationsService
     ) {
         this.loginForm = this.fb.group({
             username: [
@@ -89,7 +91,11 @@ export class LoginPage {
                     return this.router.navigate(["pasajero/inicio"]);
                 }
             } else {
-                alert("¡Los datos ingresados no son validos!");
+                this.notificationService.showInfo(
+                    "Error",
+                    "¡Los datos ingresados no son validos!",
+                    "warning"
+                );
             }
         }
 

@@ -3,9 +3,10 @@ import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { IonicModule, ModalController } from "@ionic/angular";
 import { IconsModule } from "../../icons.module";
-import { UserService } from "../../user.service";
-import { StorageService } from "src/app/storage.service";
-import { MapaService } from "src/app/mapa.service";
+import { UserService } from "../../services/user.service";
+import { StorageService } from "src/app/services/storage.service";
+import { MapaService } from "src/app/services/mapa.service";
+import { NotificationsService } from "src/app/services/notifications.service";
 
 interface Viaje {
     vehiculo: string;
@@ -38,21 +39,28 @@ export class InicioPage implements OnInit {
         private userService: UserService,
         private storageService: StorageService,
         private mapService: MapaService,
-        private modalController: ModalController
+        private notificationService: NotificationsService
     ) {}
 
     ngOnInit() {}
-
-    async ngAfterViewInit() {
-        console.log("ViajesPage: ngAfterViewInit");
-    }
 
     async listarViajes() {
         const allViajes = await this.storageService.getAllItems("viajes");
         this.travelList = allViajes.filter(
             (viaje: Viaje) => viaje.asientos_ocupados < viaje.capacidad
         );
-        console.log(this.travelList);
+
+        this.notificationService.showToast(
+            "Listando viajes disponibles...",
+            "info"
+        );
+
+        if (this.travelList.length <= 0) {
+            this.notificationService.showToast(
+                "No hay viajes disponibles...",
+                "warning"
+            );
+        }
     }
 
     async reservarViaje(identificador: string) {
@@ -62,8 +70,11 @@ export class InicioPage implements OnInit {
         if (viaje && viaje.asientos_ocupados < viaje.capacidad) {
             viaje.asientos_ocupados += 1;
             await this.storageService.updateItem("viajes", viaje);
-            console.log(
-                `Viaje reservado: ${identificador}, asientos restantes: ${viaje.capacidad}`
+
+            this.notificationService.showInfo(
+                "Viaje Reservado",
+                `Destino: ${viaje.destino_nombre}\nCosto: $${viaje.costo}`,
+                "success"
             );
 
             const viajeReservado = {
@@ -76,11 +87,11 @@ export class InicioPage implements OnInit {
                 "viajes_reservados",
                 viajeReservado
             );
-
-            alert("Viaje reservado");
         } else {
-            console.log(
-                `No hay asientos disponibles para el viaje: ${identificador}`
+            this.notificationService.showInfo(
+                "Error al reservar",
+                "No hay asientos disponibles",
+                "warning"
             );
         }
     }
@@ -90,7 +101,6 @@ export class InicioPage implements OnInit {
     }
 
     async onModalPresent() {
-        console.log("onModalPresent");
         if (this.mapElementUser) {
             this.mapService.drawMap(this.mapElementUser.nativeElement, {
                 lat: -33.60511640177368,
@@ -106,10 +116,8 @@ export class InicioPage implements OnInit {
                 travelData["destino_coords"].startPoint,
                 travelData["destino_coords"].finishPoint
             );
-
-            console.log("Mapa cargado");
         } else {
-            console.log("No se ha cargado el mapa");
+            console.log("¡No se logro cargar el mapa dentro del modal!");
         }
     }
 

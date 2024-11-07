@@ -10,7 +10,8 @@ import { Router } from "@angular/router";
 import { IonicModule } from "@ionic/angular";
 import { IconsModule } from "../icons.module";
 import { CommonModule } from "@angular/common";
-import { StorageService } from "../storage.service";
+import { StorageService } from "../services/storage.service";
+import { NotificationsService } from "../services/notifications.service";
 
 interface User {
     usuario: string;
@@ -43,7 +44,8 @@ export class RegisterPage {
     constructor(
         private fb: FormBuilder,
         private router: Router,
-        private storageService: StorageService
+        private storageService: StorageService,
+        private notificationService: NotificationsService
     ) {
         this.registerForm = this.fb.group(
             {
@@ -135,6 +137,12 @@ export class RegisterPage {
                 this.router.navigate(["login"], {
                     state: { userName, userPass },
                 });
+
+                this.notificationService.showInfo(
+                    "Usuario Registrado",
+                    "¡Registro exitoso!",
+                    "success"
+                );
             } else {
                 this.registerForm.get("usuario")?.setErrors({ taken: true });
             }

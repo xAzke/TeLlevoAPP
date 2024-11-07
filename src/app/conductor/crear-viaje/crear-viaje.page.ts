@@ -9,11 +9,11 @@ import {
 } from "@angular/forms";
 import { IonicModule } from "@ionic/angular";
 import { IconsModule } from "../../icons.module";
-import { StorageService } from "../../storage.service";
-import { Router, RouterModule } from "@angular/router";
-import { UserService } from "src/app/user.service";
-import { MapaService } from "src/app/mapa.service";
+import { StorageService } from "../../services/storage.service";
+import { UserService } from "src/app/services/user.service";
+import { MapaService } from "src/app/services/mapa.service";
 import { IonSearchbar } from "@ionic/angular";
+import { NotificationsService } from "src/app/services/notifications.service";
 
 @Component({
     selector: "app-crear-viaje",
@@ -38,17 +38,19 @@ export class CrearViajePage implements OnInit {
 
     constructor(
         private fb: FormBuilder,
-        private router: Router,
         private storageService: StorageService,
         private userService: UserService,
-        private mapService: MapaService
+        private mapService: MapaService,
+        private notificationService: NotificationsService
     ) {
         this.travelForm = this.fb.group({
             vehiculo: ["", [Validators.required]],
             patente: ["", [Validators.required]],
-            capacidad: ["", [Validators.required]],
-            costo: ["", [Validators.required]],
-            destino: ["", [Validators.required]],
+            capacidad: [
+                "",
+                [Validators.required, Validators.pattern("^[0-9]+$")],
+            ],
+            costo: ["", [Validators.required, Validators.pattern("^[0-9]+$")]],
         });
     }
 
@@ -69,18 +71,28 @@ export class CrearViajePage implements OnInit {
 
     guardarBusquedaMapa() {
         this.savedLocation = this.mapService.getMapLocation();
-        alert("Ubicación guardada");
+        if (this.savedLocation) {
+            this.notificationService.showToast(
+                "Ubicación guardada correctamente",
+                "success"
+            );
+        } else {
+            this.notificationService.showToast(
+                "Selecciona una ubicación",
+                "warning"
+            );
+        }
+    }
 
-        console.log(this.savedLocation);
+    limpiarBusquedaMapa() {
+        this.mapService.clearRoute();
     }
 
     async searchDirection() {
         const searchInput = await this.searchBar.getInputElement();
-        console.log(searchInput);
 
         if (searchInput) {
             this.mapService.searchDirection(searchInput);
-            console.log("searchDirection");
         }
     }
 
@@ -99,8 +111,13 @@ export class CrearViajePage implements OnInit {
             };
 
             this.storageService.setItem("viajes", newTravel);
+
+            this.notificationService.showToast("Viaje Creado", "success");
         } else {
-            console.log("No se ha seleccionado un destino");
+            this.notificationService.showToast(
+                "Selecciona una ubicación",
+                "warning"
+            );
         }
     }
 }

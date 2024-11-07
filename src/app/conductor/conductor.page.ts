@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { IonicModule } from "@ionic/angular";
 import { IconsModule } from "../icons.module";
-import { StorageService } from "../storage.service";
+import { StorageService } from "../services/storage.service";
 import { Router, RouterModule } from "@angular/router";
 
 @Component({

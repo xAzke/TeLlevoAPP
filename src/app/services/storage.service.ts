@@ -22,7 +22,6 @@ export class StorageService {
     }
 
     async setItem(dataKey: string, jsonData: any) {
-        console.log("setItem", dataKey, jsonData);
         this.fullArray = (await this.localStorage?.get(dataKey)) || [];
         this.fullArray.push(jsonData);
         await this.localStorage?.set(dataKey, this.fullArray);
@@ -38,8 +37,6 @@ export class StorageService {
     }
 
     async getItemById(dataKey: string, dataIdentifier: string) {
-        console.log("getItemById", dataKey, dataIdentifier);
-
         this.fullArray = (await this.localStorage?.get(dataKey)) || [];
         this.singleObject = this.fullArray.find(
             (value) => value.identificador == dataIdentifier

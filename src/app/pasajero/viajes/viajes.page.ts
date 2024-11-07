@@ -3,8 +3,9 @@ import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { IonicModule } from "@ionic/angular";
 import { IconsModule } from "../../icons.module";
-import { StorageService } from "src/app/storage.service";
-import { UserService } from "src/app/user.service";
+import { StorageService } from "src/app/services/storage.service";
+import { UserService } from "src/app/services/user.service";
+import { NotificationsService } from "src/app/services/notifications.service";
 
 interface ViajesReservados {
     vehiculo: string;
@@ -31,20 +32,22 @@ export class ViajesPage implements OnInit {
 
     constructor(
         private storageService: StorageService,
-        private userService: UserService
+        private userService: UserService,
+        private notificationService: NotificationsService
     ) {}
 
     ngOnInit() {}
 
     async listarViajesReservados() {
-        console.log("ViajesPage: listarViajesReservados");
-
         this.travelList = await this.storageService.getAllTravelsByUsuario(
             "viajes_reservados",
             this.userService.getUserName()
         );
 
-        console.log(this.travelList);
+        this.notificationService.showToast(
+            "Listando viajes reservados...",
+            "info"
+        );
     }
 
     async cancelarReserva(identificador: string) {
@@ -64,5 +67,9 @@ export class ViajesPage implements OnInit {
             await this.storageService.updateItem("viajes", viaje);
         }
         await this.listarViajesReservados();
+        this.notificationService.showToast(
+            "Reserva cancelada correctamente",
+            "info"
+        );
     }
 }

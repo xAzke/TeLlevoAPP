@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { map } from "rxjs";
+import { NotificationsService } from "./notifications.service";
 
 declare var google: any;
 
@@ -16,13 +16,9 @@ export class MapaService {
     directionServices: any;
     directionRenderer: any;
 
-    // @ViewChild("searchBar", { static: false }) searchBar!: IonSearchbar;
-
-    constructor() {}
+    constructor(private notificationService: NotificationsService) {}
 
     drawMap(mapElement: HTMLElement, startPoint: { lat: number; lng: number }) {
-        console.log(mapElement);
-        // var mapElement = document.getElementById("map");
         if (mapElement) {
             this.localMap = new google.maps.Map(mapElement, {
                 center: startPoint,
@@ -49,24 +45,27 @@ export class MapaService {
     }
 
     async searchDirection(searchInput: any) {
-        // const searchInput = await this.searchBar.getInputElement();
-        console.log(searchInput);
         if (searchInput) {
             const Autocomplete = new google.maps.places.Autocomplete(
                 searchInput
             );
+
             this.searchedLocation = Autocomplete;
 
             Autocomplete.addListener("place_changed", () => {
-                const place = Autocomplete.getPlace().geometry.location;
+                const place = Autocomplete.getPlace();
+                if (!place || !place.geometry) {
+                    return;
+                }
+                const location = place.geometry.location;
 
-                this.localMap.setCenter(place);
+                this.localMap.setCenter(location);
                 this.localMap.setZoom(13);
 
-                this.localMarker.setPosition(place);
+                this.localMarker.setPosition(location);
             });
         } else {
-            alert("El elemento con ID 'autocomplete' no fue encontrado");
+            console.log("La barra de busqueda no fue encontrada");
         }
     }
 
@@ -74,7 +73,10 @@ export class MapaService {
         const startLocation = this.startPoint;
         const place = this.searchedLocation?.getPlace();
         if (!place || !place.geometry) {
-            alert("No se pudo obtener la ubicación de destino.");
+            this.notificationService.showToast(
+                "No se pudo obtener la ubicación de destino.",
+                "warning"
+            );
             return;
         }
         const finishLocation = place.geometry.location;
@@ -90,7 +92,10 @@ export class MapaService {
                 if (routeStatus === google.maps.DirectionsStatus.OK) {
                     this.directionRenderer.setDirections(routeResult);
                 } else {
-                    alert("No fue posible calcular la ruta a esta direccion.");
+                    this.notificationService.showToast(
+                        "No fue posible calcular la ruta a esta dirección.",
+                        "warning"
+                    );
                 }
 
                 this.localMarker.setPosition(null);
@@ -116,7 +121,10 @@ export class MapaService {
                 if (routeStatus === google.maps.DirectionsStatus.OK) {
                     this.directionRenderer.setDirections(routeResult);
                 } else {
-                    alert("No fue posible calcular la ruta a esta direccion.");
+                    this.notificationService.showToast(
+                        "No fue posible calcular la ruta a esta dirección.",
+                        "warning"
+                    );
                 }
 
                 this.localMarker.setPosition(null);
@@ -137,5 +145,18 @@ export class MapaService {
             };
         }
         return null;
+    }
+
+    clearRoute() {
+        this.directionRenderer.setDirections({ routes: [] });
+        this.localMarker.setPosition(this.startPoint);
+        if (this.searchedLocation) {
+            this.searchedLocation.set("place", null);
+        }
+
+        this.notificationService.showToast(
+            "Mapa limpiado correctamente",
+            "info"
+        );
     }
 }

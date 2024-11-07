@@ -3,9 +3,9 @@ import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { IonicModule } from "@ionic/angular";
 import { IconsModule } from "../../icons.module";
-import { StorageService } from "../../storage.service";
-import { Router, RouterModule } from "@angular/router";
-import { UserService } from "src/app/user.service";
+import { StorageService } from "../../services/storage.service";
+import { UserService } from "src/app/services/user.service";
+import { NotificationsService } from "src/app/services/notifications.service";
 
 interface Viaje {
     vehiculo: string;
@@ -30,7 +30,8 @@ export class InicioPage implements OnInit {
 
     constructor(
         private storageService: StorageService,
-        private userService: UserService
+        private userService: UserService,
+        private notificationService: NotificationsService
     ) {}
 
     async ngOnInit() {}
@@ -40,10 +41,17 @@ export class InicioPage implements OnInit {
             "viajes",
             this.userService.getUserName()
         );
+
+        this.notificationService.showToast("Listando viajes...", "info");
     }
 
     async eliminarViaje(identificador: string) {
         await this.storageService.deleteItem("viajes", identificador);
         this.listarViajes();
+
+        this.notificationService.showToast(
+            "Viaje cancelado correctamente",
+            "info"
+        );
     }
 }

@@ -11,7 +11,8 @@
 				<ion-label>Mapa</ion-label>
 			</ion-item>
 			<div class="ion-padding" slot="content">
-				<ion-searchbar #searchBar animated="true" placeholder="Dirección"></ion-searchbar>
+				<ion-searchbar #searchBar animated="true" placeholder="Dirección"
+					(ionClear)="limpiarBusquedaMapa()"></ion-searchbar>
 
 				<div #mapElement id="map"
 					style="width: 100%; height: 350px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
@@ -30,32 +31,54 @@
 
 
 	<form [formGroup]="travelForm" (ngSubmit)="addNewTravel()" style="padding: 30px">
-		<!-- Vehículo Input -->
 		<ion-item>
 			<ion-input formControlName="vehiculo" label="Vehículo" labelPlacement="floating"
 				placeholder="Vehículo"></ion-input>
 		</ion-item>
 
-		<!-- Patente Input -->
+		<div style="color: red; margin-bottom: 10px;"
+			*ngIf="travelForm.get('vehiculo')?.invalid && travelForm.get('vehiculo')?.touched">
+			<small *ngIf="travelForm.get('vehiculo')?.errors?.['required']">¡Tienes que ingresar un vehiculo! </small>
+		</div>
+
 		<ion-item>
 			<ion-input formControlName="patente" label="Patente" labelPlacement="floating"
 				placeholder="Patente"></ion-input>
 		</ion-item>
 
-		<!-- Capacidad Input -->
+		<div style="color: red; margin-bottom: 10px;"
+			*ngIf="travelForm.get('patente')?.invalid && travelForm.get('patente')?.touched">
+			<small *ngIf="travelForm.get('patente')?.errors?.['required']">¡Tienes que ingresar la patente del vehiculo!
+			</small>
+		</div>
+
 		<ion-item>
 			<ion-input type="number" formControlName="capacidad" label="Capacidad" labelPlacement="floating"
 				placeholder="Capacidad del Vehículo"></ion-input>
 		</ion-item>
 
-		<!-- Costo Input -->
+		<div style="color: red; margin-bottom: 10px;"
+			*ngIf="travelForm.get('capacidad')?.invalid && travelForm.get('capacidad')?.touched">
+			<small *ngIf="travelForm.get('capacidad')?.errors?.['required']">¡Tienes que ingresar la capacidad del
+				vehiculo! </small>
+			<small *ngIf="travelForm.get('capacidad')?.errors?.['pattern']">¡Este campo solo acepta valores numericos!
+			</small>
+		</div>
+
 		<ion-item>
 			<ion-input type="number" formControlName="costo" label="Costo" labelPlacement="floating"
 				placeholder="Costo por Persona"></ion-input>
 		</ion-item>
 
-		<!-- Botón de Envío -->
-		<ion-button expand="block" color="dark" type="submit">
+		<div style="color: red; margin-bottom: 10px;"
+			*ngIf="travelForm.get('costo')?.invalid && travelForm.get('costo')?.touched">
+			<small *ngIf="travelForm.get('costo')?.errors?.['required']">¡Tienes que ingresar el costo por persona!
+			</small>
+			<small *ngIf="travelForm.get('costo')?.errors?.['pattern']">¡Este campo solo acepta valores numericos!
+			</small>
+		</div>
+
+		<ion-button expand="block" color="dark" type="submit" [disabled]="!travelForm.valid">
 			Crear Viaje
 		</ion-button>
 	</form>
