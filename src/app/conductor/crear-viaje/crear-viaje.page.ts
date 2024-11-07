@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import {
     FormsModule,
@@ -12,6 +12,8 @@ import { IconsModule } from "../../icons.module";
 import { StorageService } from "../../storage.service";
 import { Router, RouterModule } from "@angular/router";
 import { UserService } from "src/app/user.service";
+import { MapaService } from "src/app/mapa.service";
+import { IonSearchbar } from "@ionic/angular";
 
 @Component({
     selector: "app-crear-viaje",
@@ -27,15 +29,19 @@ import { UserService } from "src/app/user.service";
     ],
 })
 export class CrearViajePage implements OnInit {
-    travelForm!: FormGroup;
+    @ViewChild("mapElement", { static: true }) mapElement!: ElementRef;
+    @ViewChild("searchBar", { static: false }) searchBar!: IonSearchbar;
 
+    travelForm!: FormGroup;
     userName: string = "";
+    savedLocation: any;
 
     constructor(
         private fb: FormBuilder,
         private router: Router,
         private storageService: StorageService,
-        private userService: UserService
+        private userService: UserService,
+        private mapService: MapaService
     ) {
         this.travelForm = this.fb.group({
             vehiculo: ["", [Validators.required]],
@@ -47,24 +53,54 @@ export class CrearViajePage implements OnInit {
     }
 
     ngOnInit() {
-        console.log(this.userService.getUserName());
-        console.log(this.userService.getUserName());
+        this.mapService.drawMap(this.mapElement.nativeElement, {
+            lat: -33.60511640177368,
+            lng: -70.56124927637602,
+        });
     }
 
-    ngAfterViewInit() {}
+    ngAfterViewInit() {
+        this.searchDirection();
+    }
+
+    iniciarBusquedaMapa() {
+        this.mapService.calculateRoute();
+    }
+
+    guardarBusquedaMapa() {
+        this.savedLocation = this.mapService.getMapLocation();
+        alert("Ubicación guardada");
+
+        console.log(this.savedLocation);
+    }
+
+    async searchDirection() {
+        const searchInput = await this.searchBar.getInputElement();
+        console.log(searchInput);
+
+        if (searchInput) {
+            this.mapService.searchDirection(searchInput);
+            console.log("searchDirection");
+        }
+    }
 
     addNewTravel() {
-        const newTravel = {
-            vehiculo: this.travelForm.get("vehiculo")?.value,
-            patente: this.travelForm.get("patente")?.value,
-            capacidad: this.travelForm.get("capacidad")?.value,
-            costo: this.travelForm.get("costo")?.value,
-            usuario: this.userService.getUserName(),
-            identificador: Math.floor(Math.random() * 1000),
-            asientos_ocupados: 0,
-            destino: this.travelForm.get("destino")?.value,
-        };
+        if (this.savedLocation) {
+            const newTravel = {
+                vehiculo: this.travelForm.get("vehiculo")?.value,
+                patente: this.travelForm.get("patente")?.value,
+                capacidad: this.travelForm.get("capacidad")?.value,
+                costo: this.travelForm.get("costo")?.value,
+                usuario: this.userService.getUserName(),
+                identificador: Math.floor(Math.random() * 1000),
+                asientos_ocupados: 0,
+                destino_nombre: this.savedLocation.pointName,
+                destino_coords: this.savedLocation,
+            };
 
-        this.storageService.setItem("viajes", newTravel);
+            this.storageService.setItem("viajes", newTravel);
+        } else {
+            console.log("No se ha seleccionado un destino");
+        }
     }
 }

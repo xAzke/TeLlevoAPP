@@ -5,22 +5,41 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-	<ion-header collapse="condense">
-		<ion-toolbar>
-			<ion-title size="large">inicio</ion-title>
-		</ion-toolbar>
-	</ion-header>
-
 	<ion-list *ngFor="let travelData of travelList">
-		<ion-card>
-			<fa-icon [icon]="'location-dot'"></fa-icon>
-			<ion-label>
-				Vehiculo: {{travelData.vehiculo}} - Capacidad: {{travelData.capacidad}}
-				Costo: {{travelData.costo}} - Patente: {{travelData.patente}}
-			</ion-label>
-			<ion-button (click)="eliminarViaje(travelData.identificador)">Cancelar</ion-button>
+		<ion-card class="travel-card">
+			<ion-card-header>
+				<ion-card-subtitle>
+					<fa-icon [icon]="'location-dot'" style="color: #4CAF50;"></fa-icon> Ruta
+				</ion-card-subtitle>
+				<ion-card-title>{{travelData.vehiculo}}</ion-card-title>
+			</ion-card-header>
+
+			<ion-card-content>
+				<ion-grid>
+					<ion-row>
+						<ion-col size="6">
+							<strong>Capacidad:</strong> {{travelData.capacidad}} personas
+						</ion-col>
+						<ion-col size="6">
+							<strong>Costo:</strong> ${{travelData.costo}} por persona
+						</ion-col>
+					</ion-row>
+					<ion-row>
+						<ion-col size="12">
+							<strong>Patente:</strong> {{travelData.patente}}
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+			</ion-card-content>
+
+			<ion-footer class="ion-no-border">
+				<ion-button expand="full" color="danger" (click)="eliminarViaje(travelData.identificador)">
+					Cancelar Viaje
+				</ion-button>
+			</ion-footer>
 		</ion-card>
 	</ion-list>
+
 
 	<ion-fab vertical="bottom" horizontal="end" slot="fixed">
 		<ion-button (click)="listarViajes()"><fa-icon [icon]="'arrows-rotate'"></fa-icon></ion-button>

@@ -37,6 +37,16 @@ export class StorageService {
         return this.singleObject;
     }
 
+    async getItemById(dataKey: string, dataIdentifier: string) {
+        console.log("getItemById", dataKey, dataIdentifier);
+
+        this.fullArray = (await this.localStorage?.get(dataKey)) || [];
+        this.singleObject = this.fullArray.find(
+            (value) => value.identificador == dataIdentifier
+        );
+        return this.singleObject;
+    }
+
     async updateItem(dataKey: string, jsonData: any) {
         this.fullArray = (await this.localStorage?.get(dataKey)) || [];
         let indexItem = this.fullArray.findIndex(

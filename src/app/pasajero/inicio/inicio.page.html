@@ -32,7 +32,7 @@
 
 					<ion-row>
 						<ion-col>
-							<strong>Destino:</strong> {{ travelData.destino }}
+							<strong>Destino:</strong> {{ travelData.destino_nombre }}
 						</ion-col>
 					</ion-row>
 				</ion-grid>
@@ -42,9 +42,36 @@
 				<ion-button expand="full" (click)="reservarViaje(travelData.identificador)">
 					Reservar Viaje
 				</ion-button>
+
+				<ion-button expand="full" (click)="mostrarRutaViaje(travelData.identificador)">Mostrar Ruta</ion-button>
+
 			</div>
 		</ion-card>
 	</ion-list>
+
+	<ion-modal [isOpen]="isModalOpen" (ionModalDidPresent)="onModalPresent()">
+		<ng-template>
+			<ion-header>
+				<ion-toolbar>
+					<ion-title>Ruta</ion-title>
+					<ion-buttons slot="end">
+						<ion-button (click)="setModalState(false)">Cerrar</ion-button>
+					</ion-buttons>
+				</ion-toolbar>
+			</ion-header>
+			<ion-content class="ion-padding">
+				<div #mapElementUser id="map"
+					style="width: 100%; height: 350px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); margin-bottom: 16px;">
+				</div>
+
+				<div id="trayecto"
+					style="padding: 16px; border-radius: 8px; background-color: #f9f9f9; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);">
+					<!-- Contenido del trayecto -->
+				</div>
+			</ion-content>
+		</ng-template>
+	</ion-modal>
+
 
 	<ion-fab vertical="bottom" horizontal="end" slot="fixed">
 		<ion-button (click)="listarViajes()"><fa-icon [icon]="'arrows-rotate'"></fa-icon></ion-button>

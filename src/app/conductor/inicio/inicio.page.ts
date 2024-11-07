@@ -12,10 +12,10 @@ interface Viaje {
     patente: string;
     capacidad: number;
     costo: number;
-    inicio: string;
-    fin: string;
     usuario: string;
     identificador: string;
+    asientos_ocupados: number;
+    destino_nombre: string;
 }
 
 @Component({

@@ -1,11 +1,11 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
-import { IonicModule } from "@ionic/angular";
-import { Router } from "@angular/router";
+import { IonicModule, ModalController } from "@ionic/angular";
 import { IconsModule } from "../../icons.module";
 import { UserService } from "../../user.service";
 import { StorageService } from "src/app/storage.service";
+import { MapaService } from "src/app/mapa.service";
 
 interface Viaje {
     vehiculo: string;
@@ -17,7 +17,7 @@ interface Viaje {
     usuario: string;
     identificador: string;
     asientos_ocupados: number;
-    destino: string;
+    destino_nombre: string;
 }
 
 @Component({
@@ -28,12 +28,17 @@ interface Viaje {
     imports: [IonicModule, CommonModule, FormsModule, IconsModule],
 })
 export class InicioPage implements OnInit {
+    @ViewChild("mapElementUser") mapElementUser: ElementRef | undefined;
+
     travelList: Viaje[] = [];
+    travelId: string = "";
+    isModalOpen = false;
 
     constructor(
-        private router: Router,
         private userService: UserService,
-        private storageService: StorageService
+        private storageService: StorageService,
+        private mapService: MapaService,
+        private modalController: ModalController
     ) {}
 
     ngOnInit() {}
@@ -43,7 +48,10 @@ export class InicioPage implements OnInit {
     }
 
     async listarViajes() {
-        this.travelList = await this.storageService.getAllItems("viajes");
+        const allViajes = await this.storageService.getAllItems("viajes");
+        this.travelList = allViajes.filter(
+            (viaje: Viaje) => viaje.asientos_ocupados < viaje.capacidad
+        );
         console.log(this.travelList);
     }
 
@@ -68,10 +76,45 @@ export class InicioPage implements OnInit {
                 "viajes_reservados",
                 viajeReservado
             );
+
+            alert("Viaje reservado");
         } else {
             console.log(
                 `No hay asientos disponibles para el viaje: ${identificador}`
             );
         }
+    }
+
+    setModalState(state: boolean) {
+        this.isModalOpen = state;
+    }
+
+    async onModalPresent() {
+        console.log("onModalPresent");
+        if (this.mapElementUser) {
+            this.mapService.drawMap(this.mapElementUser.nativeElement, {
+                lat: -33.60511640177368,
+                lng: -70.56124927637602,
+            });
+
+            const travelData = await this.storageService.getItemById(
+                "viajes",
+                this.travelId
+            );
+
+            this.mapService.calculateManualRoute(
+                travelData["destino_coords"].startPoint,
+                travelData["destino_coords"].finishPoint
+            );
+
+            console.log("Mapa cargado");
+        } else {
+            console.log("No se ha cargado el mapa");
+        }
+    }
+
+    async mostrarRutaViaje(identificador: string) {
+        this.setModalState(true);
+        this.travelId = identificador;
     }
 }

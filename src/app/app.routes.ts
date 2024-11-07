@@ -37,11 +37,6 @@ export const routes: Routes = [
                     ),
             },
             {
-                path: "mapa",
-                loadComponent: () =>
-                    import("./map/map.page").then((m) => m.MapPage),
-            },
-            {
                 path: "perfil",
                 loadComponent: () =>
                     import("./pasajero/perfil/perfil.page").then(
@@ -69,11 +64,6 @@ export const routes: Routes = [
                     import("./conductor/crear-viaje/crear-viaje.page").then(
                         (m) => m.CrearViajePage
                     ),
-            },
-            {
-                path: "mapa",
-                loadComponent: () =>
-                    import("./conductor/mapa/map.page").then((m) => m.MapaPage),
             },
         ],
     },

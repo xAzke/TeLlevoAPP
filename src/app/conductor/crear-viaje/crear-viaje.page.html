@@ -5,37 +5,58 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+	<ion-accordion-group>
+		<ion-accordion value="first">
+			<ion-item slot="header" color="light">
+				<ion-label>Mapa</ion-label>
+			</ion-item>
+			<div class="ion-padding" slot="content">
+				<ion-searchbar #searchBar animated="true" placeholder="Dirección"></ion-searchbar>
+
+				<div #mapElement id="map"
+					style="width: 100%; height: 350px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+				</div>
+
+				<ion-button expand="full" color="primary" (click)="iniciarBusquedaMapa()">
+					Revisar Ruta
+				</ion-button>
+				<ion-button expand="full" color="primary" (click)="guardarBusquedaMapa()">
+					Guardar Ruta
+				</ion-button>
+			</div>
+		</ion-accordion>
+	</ion-accordion-group>
+
+
+
 	<form [formGroup]="travelForm" (ngSubmit)="addNewTravel()" style="padding: 30px">
+		<!-- Vehículo Input -->
 		<ion-item>
-			<ion-input formControlName="vehiculo" label="Vehiculo" labelPlacement="floating"
-				placeholder="Vehiculo"></ion-input>
+			<ion-input formControlName="vehiculo" label="Vehículo" labelPlacement="floating"
+				placeholder="Vehículo"></ion-input>
 		</ion-item>
 
+		<!-- Patente Input -->
 		<ion-item>
 			<ion-input formControlName="patente" label="Patente" labelPlacement="floating"
 				placeholder="Patente"></ion-input>
 		</ion-item>
 
+		<!-- Capacidad Input -->
 		<ion-item>
-			<ion-input formControlName="capacidad" label="Capacidad" labelPlacement="floating"
-				placeholder="Capacidad del Vehiculo"></ion-input>
+			<ion-input type="number" formControlName="capacidad" label="Capacidad" labelPlacement="floating"
+				placeholder="Capacidad del Vehículo"></ion-input>
 		</ion-item>
 
+		<!-- Costo Input -->
 		<ion-item>
-			<ion-input formControlName="costo" label="Costo" labelPlacement="floating"
+			<ion-input type="number" formControlName="costo" label="Costo" labelPlacement="floating"
 				placeholder="Costo por Persona"></ion-input>
 		</ion-item>
 
-		<ion-item>
-			<ion-input formControlName="destino" label="Destino" labelPlacement="floating"
-				placeholder="Destino"></ion-input>
-		</ion-item>
-
-		<!-- <ion-item>
-			<ion-input formControlName="origen" label="Origen" labelPlacement="floating"
-				placeholder="Origen"></ion-input>
-		</ion-item> -->
-
-		<ion-button expand="block" color="dark" type="submit">Crear Viaje</ion-button>
+		<!-- Botón de Envío -->
+		<ion-button expand="block" color="dark" type="submit">
+			Crear Viaje
+		</ion-button>
 	</form>
 </ion-content>
