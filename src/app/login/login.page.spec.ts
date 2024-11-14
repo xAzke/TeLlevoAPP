@@ -2,7 +2,16 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LoginPage } from './login.page';
 
 describe('LoginPage', () => {
+	beforeEach(async()  => {
+      	await TestBed.configureTestingModule({
+        	imports:[
+          		ReactiveFormsModule,
+          		FormsModule,
+          		LoginPage
+        	],
+      		}).compileComponents // fin testbed
 
+	})// fin before
 
 	// Testing 1: Comprobar si se crea el formulario de inicio.
 	it('P1: Existencia de LoginPane', () => {
